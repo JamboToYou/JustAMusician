@@ -18,9 +18,7 @@ const MainPage = () => {
 						<div className="card bg-info">
 							<div className="card-body">
 								<div className="card-title display-4">Поиск музыкантов</div>
-								<p className="card-text">Some quick example text to build on the card title and make up
-									the
-									bulk of the card's content.</p>
+								<p className="card-text">Если у вас есть недостающее звено в группе - в вашем распоряжении инструмент поиска соискателей на любой профиль</p>
 								<a className="btn btn-primary text-light">Перейти</a>
 							</div>
 						</div>
@@ -29,9 +27,7 @@ const MainPage = () => {
 						<div className="card bg-info">
 							<div className="card-body">
 								<div className="card-title display-4">Личное портфолио</div>
-								<p className="card-text">Some quick example text to build on the card title and make up
-									the
-									bulk of the card's content.</p>
+								<p className="card-text">Размещай свой материал у себя в профиле</p>
 								<a className="btn btn-primary text-light">Перейти</a>
 							</div>
 						</div>
@@ -39,10 +35,8 @@ const MainPage = () => {
 					<div className="col-4 pl-2 pr-2">
 						<div className="card bg-info">
 							<div className="card-body">
-								<div className="card-title display-4">Заголовок</div>
-								<p className="card-text">Some quick example text to build on the card title and make up
-									the
-									bulk of the card's content.</p>
+								<div className="card-title display-4">Поиск музыкальных коллективов</div>
+								<p className="card-text">Найдите свой музыкальный коллектив и начните свою творческую карьеру</p>
 								<a className="btn btn-primary text-light">Перейти</a>
 							</div>
 						</div>

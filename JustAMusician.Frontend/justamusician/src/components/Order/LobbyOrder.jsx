@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LobbyOrder = ({ title, body }) => {
+const LobbyOrder = ({ title, body, username }) => {
 	return (
 		<div className="col-12 col-sm-6 col-md-4 col-lg-3 p-2">
 			<div className="card h-100">
@@ -9,7 +9,7 @@ const LobbyOrder = ({ title, body }) => {
 					<p className="card-text">{ body }</p>
 				</div>
 				<div className="row pr-4 pb-4">
-					<a className="text-info offset-6" href="#">Имя пользователя</a>
+					<a className="text-info offset-6" href="#">@{ username }</a>
 				</div>
 				<div className="card-footer d-flex justify-content-end">
 					<a href="#" className="btn btn-primary">Перейти</a>

@@ -34,7 +34,7 @@ class Navbar extends React.Component {
 							   role="button"
 							   data-toggle="dropdown"
 							   aria-haspopup="true"
-							   aria-expanded="false">Dropdown
+							   aria-expanded="false">Категории
 							</a>
 							<div className="dropdown-menu" aria-labelledby="navbarDropdown">
 								<a className="dropdown-item" href="#">Action</a>
@@ -45,21 +45,19 @@ class Navbar extends React.Component {
 						</li>
 
 						<li className="nav-item">
-							<a className="nav-link"
-							   href="#"
-							   tabindex="-1"
-							   aria-disabled="true">Disabled
-							</a>
+							<Link className="nav-link"
+								  to="profile">Профиль
+							</Link>
 						</li>
 					</ul>
 					<form className="form-inline my-2 my-lg-0">
 						<input className="form-control mr-sm-2"
 							   type="search"
-							   placeholder="Search"
+							   placeholder="Поиск"
 							   aria-label="Search" />
-						<button className="btn btn-outline-success my-2 my-sm-0"
-								type="submit">Search
-						</button>
+						<Link className="btn btn-outline-success my-2 my-sm-0"
+								to="/search">Искать
+						</Link>
 					</form>
 				</div>
 			</nav>
