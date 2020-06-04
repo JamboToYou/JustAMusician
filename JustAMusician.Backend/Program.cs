@@ -14,11 +14,20 @@ namespace JustAMusician.Backend
 	{
 		public static void Main(string[] args)
 		{
-			CreateWebHostBuilder(args).Build().Run();
-		}
+			var host = new WebHostBuilder()
+				.UseKestrel()
+				.UseIISIntegration()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.ConfigureAppConfiguration((builderContext, config) =>
+				{
+					IHostingEnvironment env = builderContext.HostingEnvironment;
+					config.AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
 
-		public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-			WebHost.CreateDefaultBuilder(args)
-				.UseStartup<Startup>();
+				})
+				.UseStartup<Startup>()
+				.Build();
+
+			host.Run();
+		}
 	}
 }

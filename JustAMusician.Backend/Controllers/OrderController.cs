@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using JustAMusician.Backend.Entities;
+using Microsoft.AspNetCore.Cors;
 
 namespace JustAMusician.Backend.Controllers
 {
@@ -11,23 +12,18 @@ namespace JustAMusician.Backend.Controllers
 	[ApiController]
 	public class OrderController : Controller
 	{
-		// GET api/values
-		[HttpGet]
-		public ActionResult<IEnumerable<OrderShort>> Get()
+		private readonly DataBaseContext dbContext;
+		public OrderController(DataBaseContext dbContext)
 		{
-			return new OrderShort[]
-			{
-				new OrderShort("Ищу басиста", "Some quick example text to build on the card title and make up the bulk of the card's content."),
-				new OrderShort("Ищу носки", "Some quick example text to build on the card title and make up the bulk of the card's content."),
-				new OrderShort("Требуется музыка", "Some quick example text to build on the card title and make up the bulk of the card's content."),
-				new OrderShort("Требуется музыка", "Some quick example text to build on the card title and make up the bulk of the card's content."),
-				new OrderShort("Ищу басиста", "Some quick example text to build on the card title and make up the bulk of the card's content."),
-				new OrderShort("Ищу басиста", "Some quick example text to build on the card title and make up the bulk of the card's content."),
-				new OrderShort("First", "First body body body body body body body body body body body body"),
-				new OrderShort("Second", "Second body body body body body body body body body body body body")
-			};
+			this.dbContext = dbContext;
+		}
 
-			// return new string[] { "Val1", "Val2" };
+		// GET api/values
+		[EnableCors("AllowCors")]
+		[HttpGet]
+		public ActionResult<IEnumerable<Order>> Get()
+		{
+			return dbContext.Orders.ToArray();
 		}
 
 		// GET api/values/5
