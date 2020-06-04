@@ -21,6 +21,8 @@ namespace JustAMusician.Backend
 			SetupUserBandRelation(builder);
 			SetupUserGenreRelation(builder);
 			SetupBandGenreRelation(builder);
+			SetupUserInstrumentRelation(builder);
+			SetupOrderTagRelation(builder);
 		}
 
 		private static void SetupUserBandRelation(ModelBuilder builder)
@@ -69,6 +71,38 @@ namespace JustAMusician.Backend
 				.HasOne(t => t.Genre)
 				.WithMany(t => t.BandGenres)
 				.HasForeignKey(t => t.GenreId);
+		}
+
+		private static void SetupUserInstrumentRelation(ModelBuilder builder)
+		{
+			builder.Entity<UserInstrument>()
+				.HasKey(t => new { t.UserId, t.InstrumentId } );
+			
+			builder.Entity<UserInstrument>()
+				.HasOne(t => t.User)
+				.WithMany(t => t.UserInstruments)
+				.HasForeignKey(t => t.UserId);
+			
+			builder.Entity<UserInstrument>()
+				.HasOne(t => t.Instrument)
+				.WithMany(t => t.UserInstruments)
+				.HasForeignKey(t => t.InstrumentId);
+		}
+
+		private static void SetupOrderTagRelation(ModelBuilder builder)
+		{
+			builder.Entity<OrderTag>()
+				.HasKey(t => new { t.OrderId, t.TagId } );
+			
+			builder.Entity<OrderTag>()
+				.HasOne(t => t.Order)
+				.WithMany(t => t.OrderTags)
+				.HasForeignKey(t => t.OrderId);
+			
+			builder.Entity<OrderTag>()
+				.HasOne(t => t.Tag)
+				.WithMany(t => t.OrderTags)
+				.HasForeignKey(t => t.TagId);
 		}
 	}
 }

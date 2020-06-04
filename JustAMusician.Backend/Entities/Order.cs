@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using JustAMusician.Backend.Entities.Relations;
 
 namespace JustAMusician.Backend.Entities
 {
@@ -31,8 +32,17 @@ namespace JustAMusician.Backend.Entities
 		[Required]
 		[DataType(DataType.DateTime)]
 		[Column("updatedAt")]
-		public DateTime? UpdatedAt { get; set; }
+		public DateTime UpdatedAt { get; set; }
 
-		public IEnumerable<Tag> Tags { get; set; }
+		[Required]
+		[ForeignKey("ownerId")]
+		public User Owner { get; set; }
+
+		public List<OrderTag> OrderTags { get; set; }
+
+		public Order()
+		{
+			OrderTags = new List<OrderTag>();
+		}
 	}
 }

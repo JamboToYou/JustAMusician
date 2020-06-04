@@ -3,14 +3,16 @@ using System;
 using JustAMusician.Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JustAMusician.Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200604155618_AddedOrderTagRelation")]
+    partial class AddedOrderTagRelation
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -152,6 +154,8 @@ namespace JustAMusician.Backend.Migrations
 
                     b.Property<int>("GenreId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("BandId", "GenreId");
 
                     b.HasIndex("GenreId");
@@ -178,6 +182,8 @@ namespace JustAMusician.Backend.Migrations
 
                     b.Property<int>("BandId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("UserId", "BandId");
 
                     b.HasIndex("BandId");
@@ -191,6 +197,8 @@ namespace JustAMusician.Backend.Migrations
 
                     b.Property<int>("GenreId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("UserId", "GenreId");
 
                     b.HasIndex("GenreId");
@@ -203,6 +211,8 @@ namespace JustAMusician.Backend.Migrations
                     b.Property<int>("UserId");
 
                     b.Property<int>("InstrumentId");
+
+                    b.Property<int>("Id");
 
                     b.HasKey("UserId", "InstrumentId");
 

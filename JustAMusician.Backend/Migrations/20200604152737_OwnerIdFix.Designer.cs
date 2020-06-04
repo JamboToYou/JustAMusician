@@ -3,14 +3,16 @@ using System;
 using JustAMusician.Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JustAMusician.Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200604152737_OwnerIdFix")]
+    partial class OwnerIdFix
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,11 +52,15 @@ namespace JustAMusician.Backend.Migrations
                         .IsRequired()
                         .HasColumnName("title");
 
+                    b.Property<int?>("UserId");
+
                     b.HasKey("GenreId");
 
                     b.HasIndex("BandId");
 
                     b.HasIndex("GenreId1");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("genres");
                 });
@@ -152,6 +158,8 @@ namespace JustAMusician.Backend.Migrations
 
                     b.Property<int>("GenreId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("BandId", "GenreId");
 
                     b.HasIndex("GenreId");
@@ -159,24 +167,13 @@ namespace JustAMusician.Backend.Migrations
                     b.ToTable("BandGenre");
                 });
 
-            modelBuilder.Entity("JustAMusician.Backend.Entities.Relations.OrderTag", b =>
-                {
-                    b.Property<int>("OrderId");
-
-                    b.Property<int>("TagId");
-
-                    b.HasKey("OrderId", "TagId");
-
-                    b.HasIndex("TagId");
-
-                    b.ToTable("OrderTag");
-                });
-
             modelBuilder.Entity("JustAMusician.Backend.Entities.Relations.UserBand", b =>
                 {
                     b.Property<int>("UserId");
 
                     b.Property<int>("BandId");
+
+                    b.Property<int>("Id");
 
                     b.HasKey("UserId", "BandId");
 
@@ -191,24 +188,13 @@ namespace JustAMusician.Backend.Migrations
 
                     b.Property<int>("GenreId");
 
+                    b.Property<int>("Id");
+
                     b.HasKey("UserId", "GenreId");
 
                     b.HasIndex("GenreId");
 
                     b.ToTable("UserGenre");
-                });
-
-            modelBuilder.Entity("JustAMusician.Backend.Entities.Relations.UserInstrument", b =>
-                {
-                    b.Property<int>("UserId");
-
-                    b.Property<int>("InstrumentId");
-
-                    b.HasKey("UserId", "InstrumentId");
-
-                    b.HasIndex("InstrumentId");
-
-                    b.ToTable("UserInstrument");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Tag", b =>
@@ -221,7 +207,11 @@ namespace JustAMusician.Backend.Migrations
                         .IsRequired()
                         .HasColumnName("name");
 
+                    b.Property<int?>("OrderId");
+
                     b.HasKey("TagId");
+
+                    b.HasIndex("OrderId");
 
                     b.ToTable("tags");
                 });
@@ -277,6 +267,10 @@ namespace JustAMusician.Backend.Migrations
                     b.HasOne("JustAMusician.Backend.Entities.Genre")
                         .WithMany("SubGenres")
                         .HasForeignKey("GenreId1");
+
+                    b.HasOne("JustAMusician.Backend.Entities.User")
+                        .WithMany("Genres")
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Instrument", b =>
@@ -318,19 +312,6 @@ namespace JustAMusician.Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("JustAMusician.Backend.Entities.Relations.OrderTag", b =>
-                {
-                    b.HasOne("JustAMusician.Backend.Entities.Order", "Order")
-                        .WithMany("OrderTags")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("JustAMusician.Backend.Entities.Tag", "Tag")
-                        .WithMany("OrderTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("JustAMusician.Backend.Entities.Relations.UserBand", b =>
                 {
                     b.HasOne("JustAMusician.Backend.Entities.Band", "Band")
@@ -357,17 +338,11 @@ namespace JustAMusician.Backend.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("JustAMusician.Backend.Entities.Relations.UserInstrument", b =>
+            modelBuilder.Entity("JustAMusician.Backend.Entities.Tag", b =>
                 {
-                    b.HasOne("JustAMusician.Backend.Entities.Instrument", "Instrument")
-                        .WithMany("UserInstruments")
-                        .HasForeignKey("InstrumentId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("JustAMusician.Backend.Entities.User", "User")
-                        .WithMany("UserInstruments")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("JustAMusician.Backend.Entities.Order")
+                        .WithMany("Tags")
+                        .HasForeignKey("OrderId");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,5 +1,7 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using JustAMusician.Backend.Entities.Relations;
 
 namespace JustAMusician.Backend.Entities
 {
@@ -16,5 +18,11 @@ namespace JustAMusician.Backend.Entities
 		public string Name { get; set; }
 
 		public InstrumentType Type { get; set; }
+		public List<UserInstrument> UserInstruments { get; set; }
+
+		public Instrument()
+		{
+			UserInstruments = new List<UserInstrument>();
+		}
 	}
 }

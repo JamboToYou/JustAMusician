@@ -44,12 +44,11 @@ namespace JustAMusician.Backend.Entities
 		[Column("signedUpAt")]
 		public DateTime SignedUpAt { get; set; }
 
-		public List<Genre> Genres { get; set; }
-
 		public List<Instrument> Instruments { get; set; }
 
 		public List<UserBand> UserBands { get; set; }
 		public List<UserGenre> UserGenres { get; set; }
+		public List<UserInstrument> UserInstruments { get; set; }
 
 		public List<Link> Links { get; set; }
 
@@ -57,6 +56,7 @@ namespace JustAMusician.Backend.Entities
 		{
 			UserBands = new List<UserBand>();
 			UserGenres = new List<UserGenre>();
+			UserInstruments = new List<UserInstrument>();
 		}
 	}
 }

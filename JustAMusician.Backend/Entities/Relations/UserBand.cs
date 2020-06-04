@@ -4,7 +4,6 @@ namespace JustAMusician.Backend.Entities.Relations
 {
 	public class UserBand
 	{
-		public int Id { get; set; }
 		public int UserId { get; set; }
 		public int BandId { get; set; }
 
