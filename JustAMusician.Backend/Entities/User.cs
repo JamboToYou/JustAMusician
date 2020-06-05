@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using JustAMusician.Backend.Entities.Enums;
 using JustAMusician.Backend.Entities.Relations;
 
 namespace JustAMusician.Backend.Entities
@@ -43,6 +44,10 @@ namespace JustAMusician.Backend.Entities
 		[DataType(DataType.DateTime)]
 		[Column("signedUpAt")]
 		public DateTime SignedUpAt { get; set; }
+
+		[Required]
+		[Column("role")]
+		public Roles Role { get; set; }
 
 		public List<UserBand> UserBands { get; set; }
 		public List<UserGenre> UserGenres { get; set; }
