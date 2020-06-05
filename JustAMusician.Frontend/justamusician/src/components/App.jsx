@@ -6,6 +6,7 @@ import MainPage from './Body/MainPage.jsx';
 import Footer from './Footer.jsx';
 import Lobby from './Lobby/Lobby.jsx';
 import Profile from './Profile/Profile.jsx';
+import Search from './Search/Search.jsx';
 
 const mockData = [
 	{
@@ -66,15 +67,25 @@ class App extends React.Component {
 					<div className="container-fluid">
 						<Navbar />
 						<div className="row jam-body-container">
-							<Switch>
-								<Route exact path="/" component={MainPage} />
-								<Route path="/lobby" component={() => <Lobby orders={mockData} />} />
-								<Route path="/search" component={() => (
-									<Lobby orders={searchData}>
-										<p className="display-4 text-success">Результаты поиска</p>
-									</Lobby>)} />
-								<Route path="/profile" component={Profile} />
-							</Switch>
+							<div className="container-fluid row">
+								<div className="col-md-3 col-lg-2" id="jam-sidebar-container">
+									<div className="list-group">
+										<a href="#" className="bg-warning list-group-item list-group-item-action disabled">Бенд-треды</a>
+										<a href="#" className="bg-warning list-group-item list-group-item-action">Группы</a>
+										<a href="#" className="bg-warning list-group-item list-group-item-action">Сессии</a>
+										<a href="#" className="bg-warning list-group-item list-group-item-action">Концерты</a>
+										<a href="#" className="bg-warning list-group-item list-group-item-action">Разработка материала</a>
+									</div>
+								</div>
+								<div className="col-md-9 col-lg-10 jumbotron mr-0 w-100 bg-light p-4" id="jam-main-intro">
+									<Switch>
+										<Route exact path="/" component={MainPage} />
+										<Route path="/lobby" component={() => <Lobby orders={mockData} />} />
+										<Route path="/search" component={Search} />
+										<Route path="/profile" component={Profile} />
+									</Switch>
+								</div>
+							</div>
 						</div>
 					</div>
 					<Footer />

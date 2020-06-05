@@ -1,0 +1,12 @@
+.jam-search-tree {
+	height: 300px;
+	overflow: scroll;
+}
+
+#jam-search-title {
+	font-size: 36px;
+}
+
+.jam-tag-pill {
+	border-radius: 50vh;
+}

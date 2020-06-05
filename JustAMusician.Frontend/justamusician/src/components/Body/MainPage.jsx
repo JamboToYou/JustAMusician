@@ -2,7 +2,7 @@ import React from 'react';
 
 const MainPage = () => {
 	return (
-		<div className="jumbotron jumbotron-fluid w-100 bg-light" id="jam-main-intro">
+		<div>
 			<div className="container jam-main-intro-content">
 				<p className="display-4">JustAMusician</p>
 				<div className="jumbotron jumbotron-fluid w-100 bg-light">
