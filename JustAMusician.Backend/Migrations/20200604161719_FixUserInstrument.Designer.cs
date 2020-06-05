@@ -3,14 +3,16 @@ using System;
 using JustAMusician.Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JustAMusician.Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200604161719_FixUserInstrument")]
+    partial class FixUserInstrument
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +44,19 @@ namespace JustAMusician.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("genreId");
 
+                    b.Property<int?>("BandId");
+
+                    b.Property<int?>("GenreId1");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnName("title");
 
-                    b.Property<int?>("parentGenreId");
-
                     b.HasKey("GenreId");
 
-                    b.HasIndex("parentGenreId");
+                    b.HasIndex("BandId");
+
+                    b.HasIndex("GenreId1");
 
                     b.ToTable("genres");
                 });
@@ -65,11 +71,11 @@ namespace JustAMusician.Backend.Migrations
                         .IsRequired()
                         .HasColumnName("name");
 
-                    b.Property<int?>("typeId");
+                    b.Property<int?>("TypeInstrumentTypeId");
 
                     b.HasKey("InstrumentId");
 
-                    b.HasIndex("typeId");
+                    b.HasIndex("TypeInstrumentTypeId");
 
                     b.ToTable("instruments");
                 });
@@ -118,7 +124,8 @@ namespace JustAMusician.Backend.Migrations
                         .IsRequired()
                         .HasColumnName("body");
 
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTime?>("CreatedAt")
+                        .IsRequired()
                         .HasColumnName("createdAt");
 
                     b.Property<string>("Title")
@@ -261,16 +268,20 @@ namespace JustAMusician.Backend.Migrations
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Genre", b =>
                 {
-                    b.HasOne("JustAMusician.Backend.Entities.Genre", "ParentGenre")
-                        .WithMany()
-                        .HasForeignKey("parentGenreId");
+                    b.HasOne("JustAMusician.Backend.Entities.Band")
+                        .WithMany("Genres")
+                        .HasForeignKey("BandId");
+
+                    b.HasOne("JustAMusician.Backend.Entities.Genre")
+                        .WithMany("SubGenres")
+                        .HasForeignKey("GenreId1");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Instrument", b =>
                 {
                     b.HasOne("JustAMusician.Backend.Entities.InstrumentType", "Type")
                         .WithMany()
-                        .HasForeignKey("typeId");
+                        .HasForeignKey("TypeInstrumentTypeId");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Link", b =>

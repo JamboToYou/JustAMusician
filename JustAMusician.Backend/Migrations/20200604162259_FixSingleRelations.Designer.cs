@@ -3,14 +3,16 @@ using System;
 using JustAMusician.Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JustAMusician.Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200604162259_FixSingleRelations")]
+    partial class FixSingleRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,15 +44,15 @@ namespace JustAMusician.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("genreId");
 
+                    b.Property<int?>("GenreId1");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnName("title");
 
-                    b.Property<int?>("parentGenreId");
-
                     b.HasKey("GenreId");
 
-                    b.HasIndex("parentGenreId");
+                    b.HasIndex("GenreId1");
 
                     b.ToTable("genres");
                 });
@@ -261,9 +263,9 @@ namespace JustAMusician.Backend.Migrations
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Genre", b =>
                 {
-                    b.HasOne("JustAMusician.Backend.Entities.Genre", "ParentGenre")
-                        .WithMany()
-                        .HasForeignKey("parentGenreId");
+                    b.HasOne("JustAMusician.Backend.Entities.Genre")
+                        .WithMany("SubGenres")
+                        .HasForeignKey("GenreId1");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Instrument", b =>

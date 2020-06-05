@@ -17,6 +17,7 @@ namespace JustAMusician.Backend.Entities
 		[Column("name")]
 		public string Name { get; set; }
 
+		[ForeignKey("typeId")]
 		public InstrumentType Type { get; set; }
 		public List<UserInstrument> UserInstruments { get; set; }
 

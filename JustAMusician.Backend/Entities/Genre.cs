@@ -20,7 +20,8 @@ namespace JustAMusician.Backend.Entities
 		public List<UserGenre> UserGenres { get; set; }
 		public List<BandGenre> BandGenres { get; set; }
 
-		public List<Genre> SubGenres { get; set; }
+		[ForeignKey("parentGenreId")]
+		public Genre ParentGenre { get; set; }
 
 		public Genre()
 		{

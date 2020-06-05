@@ -27,7 +27,7 @@ namespace JustAMusician.Backend.Entities
 		[Required]
 		[DataType(DataType.DateTime)]
 		[Column("createdAt")]
-		public DateTime? CreatedAt { get; set; }
+		public DateTime CreatedAt { get; set; }
 
 		[Required]
 		[DataType(DataType.DateTime)]

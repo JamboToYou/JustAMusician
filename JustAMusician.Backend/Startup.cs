@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 
 namespace JustAMusician.Backend
 {
@@ -33,7 +34,13 @@ namespace JustAMusician.Backend
 							});
 					});
 
-			services.AddMvc();
+			services.AddMvc()
+				.AddJsonOptions(options =>
+				{
+					var settings = options.SerializerSettings;
+					settings.NullValueHandling = NullValueHandling.Ignore;
+					settings.DefaultValueHandling = DefaultValueHandling.Ignore;
+				});
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

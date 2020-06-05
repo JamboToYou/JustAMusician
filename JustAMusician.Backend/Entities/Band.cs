@@ -24,7 +24,6 @@ namespace JustAMusician.Backend.Entities
 
 		public List<UserBand> UserBands { get; set; }
 		public List<BandGenre> BandGenres { get; set; }
-		public List<Genre> Genres { get; set; }
 
 		public Band()
 		{
