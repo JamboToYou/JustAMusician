@@ -61,10 +61,11 @@ namespace JustAMusician.Backend.Controllers
 			return Ok();
 		}
 
-		[HttpPost("token")]
-		public IActionResult Token(string email, string password)
+		[Route("token")]
+		[HttpPost]
+		public IActionResult Token([FromBody] LoginViewModel vModel)
 		{
-			var identity = GetIdentity(email, password);
+			var identity = GetIdentity(vModel.Email, vModel.Password);
 			if (identity == null)
 			{
 				return BadRequest(new { error = "Invalid email or password." });
