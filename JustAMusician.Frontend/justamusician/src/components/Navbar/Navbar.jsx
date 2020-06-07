@@ -10,7 +10,7 @@ class Navbar extends React.Component {
 	render() {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-dark bg-dark jam-navbar">
-				<Link className="navbar-brand" to="/">JAM</Link>
+				<Link className="navbar-brand" to="/app">JAM</Link>
 				<button className="navbar-toggler"
 						type="button"
 						data-toggle="collapse"
@@ -24,29 +24,12 @@ class Navbar extends React.Component {
 					<ul className="navbar-nav mr-auto">
 
 						<li className="nav-item">
-							<Link className="nav-link" to="/lobby">Заявки</Link>
-						</li>
-
-						<li className="nav-item dropdown">
-							<a className="nav-link dropdown-toggle"
-							   href="#"
-							   id="navbarDropdown"
-							   role="button"
-							   data-toggle="dropdown"
-							   aria-haspopup="true"
-							   aria-expanded="false">Категории
-							</a>
-							<div className="dropdown-menu" aria-labelledby="navbarDropdown">
-								<a className="dropdown-item" href="#">Action</a>
-								<a className="dropdown-item" href="#">Another action</a>
-								<div className="dropdown-divider"></div>
-								<a className="dropdown-item" href="#">Something else here</a>
-							</div>
+							<Link className="nav-link" to="/app/lobby">Заявки</Link>
 						</li>
 
 						<li className="nav-item">
 							<Link className="nav-link"
-								  to="profile">Профиль
+								  to="/app/profile">Профиль
 							</Link>
 						</li>
 					</ul>
@@ -56,7 +39,7 @@ class Navbar extends React.Component {
 							   placeholder="Поиск"
 							   aria-label="Search" />
 						<Link className="btn btn-outline-success my-2 my-sm-0"
-								to="/search">Искать
+								to="/app/search">Искать
 						</Link>
 					</form>
 				</div>
