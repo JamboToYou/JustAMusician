@@ -13,6 +13,7 @@ namespace JustAMusician.Backend
 		public DbSet<Instrument> Instruments { get; set; }
 		public DbSet<InstrumentType> InstrumentTypes { get; set; }
 		public DbSet<Link> Links { get; set; }
+		public DbSet<Band> Bands { get; set; }
 
 		public DataBaseContext(DbContextOptions<DataBaseContext> options) : base(options) {}
 

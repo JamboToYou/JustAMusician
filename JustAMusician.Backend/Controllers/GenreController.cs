@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using JustAMusician.Backend.Entities;
-using JustAMusician.Backend.Entities.ViewModels;
+using JustAMusician.Backend.Entities.ResponseModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +21,7 @@ namespace JustAMusician.Backend.Controllers
 
 		[Route("all")]
 		[HttpGet]
-		public ActionResult<IEnumerable<TreeViewModel>> All()
+		public ActionResult<IEnumerable<TreeViewResponseModel>> All()
 		{
 			var genres = dbContext.Genres.Include(g => g.ParentGenre).ToList();
 			return genres
@@ -30,9 +30,9 @@ namespace JustAMusician.Backend.Controllers
 				.ToList();
 		}
 
-		private TreeViewModel GetGenreBranch(Genre genre, List<Genre> genres)
+		private TreeViewResponseModel GetGenreBranch(Genre genre, List<Genre> genres)
 		{
-			var result = new TreeViewModel(genre);
+			var result = new TreeViewResponseModel(genre);
 			if (genres.Count == 0)
 				return result;
 

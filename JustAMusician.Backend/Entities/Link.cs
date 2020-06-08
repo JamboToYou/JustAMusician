@@ -14,5 +14,9 @@ namespace JustAMusician.Backend.Entities
 		[DataType(DataType.Url)]
 		[Column("url")]
 		public string Url { get; set; }
+
+		[Required]
+		[ForeignKey("userId")]
+		public int UserId { get; set; }
 	}
 }

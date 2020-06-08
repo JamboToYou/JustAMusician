@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JustAMusician.Backend.Entities;
-using JustAMusician.Backend.Entities.ViewModels;
+using JustAMusician.Backend.Entities.ResponseModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -22,17 +22,17 @@ namespace JustAMusician.Backend.Controllers
 
 		[Route("all")]
 		[HttpGet]
-		public ActionResult<IEnumerable<TreeViewModel>> All()
+		public ActionResult<IEnumerable<TreeViewResponseModel>> All()
 		{
 			return dbContext.Instruments
 				.GroupBy(instr => instr.Name.First())
 				.ToDictionary(g => g.Key, g => g.ToList())
 				.Select(gc =>
-					new TreeViewModel
+					new TreeViewResponseModel
 					{
 						Value = $"{gc.Key}",
 						Label = gc.Key.ToString(),
-						Children = gc.Value.Select(g => new TreeViewModel
+						Children = gc.Value.Select(g => new TreeViewResponseModel
 							{
 								Value = $"{g.InstrumentId}",
 								Label = g.Name

@@ -99,7 +99,7 @@ namespace JustAMusician.Backend.Controllers
 			{
 				var claims = new List<Claim>
 				{
-					new Claim(ClaimsIdentity.DefaultNameClaimType, user.Nickname),
+					new Claim(ClaimsIdentity.DefaultNameClaimType, user.UserId.ToString()),
 					new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.ToString())
 				};
 				ClaimsIdentity claimsIdentity =

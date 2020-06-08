@@ -3,14 +3,16 @@ using System;
 using JustAMusician.Backend;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace JustAMusician.Backend.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20200608202555_EnsureBandsExist")]
+    partial class EnsureBandsExist
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -23,16 +25,15 @@ namespace JustAMusician.Backend.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnName("bandId");
 
-                    b.Property<int>("LeaderId")
-                        .HasColumnName("leaderId");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnName("name");
 
+                    b.Property<int?>("leaderId");
+
                     b.HasKey("BandId");
 
-                    b.HasIndex("LeaderId");
+                    b.HasIndex("leaderId");
 
                     b.ToTable("bands");
                 });
@@ -100,7 +101,7 @@ namespace JustAMusician.Backend.Migrations
                         .IsRequired()
                         .HasColumnName("url");
 
-                    b.Property<int>("UserId");
+                    b.Property<int?>("UserId");
 
                     b.HasKey("LinkId");
 
@@ -260,8 +261,7 @@ namespace JustAMusician.Backend.Migrations
                 {
                     b.HasOne("JustAMusician.Backend.Entities.User", "Leader")
                         .WithMany()
-                        .HasForeignKey("LeaderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("leaderId");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Genre", b =>
@@ -282,8 +282,7 @@ namespace JustAMusician.Backend.Migrations
                 {
                     b.HasOne("JustAMusician.Backend.Entities.User")
                         .WithMany("Links")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("JustAMusician.Backend.Entities.Order", b =>

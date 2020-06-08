@@ -14,7 +14,8 @@ namespace JustAMusician.Backend.Entities
 		[Column("bandId")]
 		public int BandId { get; set; }
 
-		[ForeignKey("leaderId")]
+		[Column("leaderId")]
+		public int LeaderId { get; set; }
 		public User Leader { get; set; }
 
 		[Required]

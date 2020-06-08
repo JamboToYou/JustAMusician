@@ -28,17 +28,6 @@ namespace JustAMusician.Backend
 		{
 			services.AddDbContext<DataBaseContext>(options =>
 				options.UseMySql(Configuration.GetConnectionString("jamcs")));
-			services.AddCors(options =>
-					{
-						options.AddPolicy(
-							name: "AllowCors",
-							builder =>
-							{
-								builder.AllowAnyHeader()
-										.AllowAnyMethod()
-										.AllowAnyOrigin();
-							});
-					});
 
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>
@@ -65,6 +54,18 @@ namespace JustAMusician.Backend
 					};
 				});
 
+			services.AddCors(options =>
+					{
+						options.AddPolicy(
+							name: "AllowCors",
+							builder =>
+							{
+								builder.AllowAnyHeader()
+										.AllowAnyMethod()
+										.AllowAnyOrigin();
+							});
+					});
+
 			services.AddMvc()
 				.AddJsonOptions(options =>
 				{
@@ -89,8 +90,7 @@ namespace JustAMusician.Backend
 
 			app.UseAuthentication();
 
-			app.UseHttpsRedirection();
-			app.UseCors();
+			app.UseCors("AllowCors");
 			app.UseMvc();
 		}
 	}
