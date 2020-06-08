@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
+import { getUser } from '../utils/authRequests.js';
 
 import '../styles/bootstrap.min.css';
 import '../styles/style.css';
@@ -22,19 +23,17 @@ class AppContainer extends React.Component {
 			<Router>
 				<Switch>
 					<Route exact path="/register">
-						<AuthWrap>
-							<RegisterWindow />
-						</AuthWrap>
+						<RegisterWindow />
 					</Route>
-					<Route exact path="/">
-						<AuthWrap>
-							<LoginWindow />
-						</AuthWrap>
+					<Route path="/login">
+						<AuthWrap
+							component={LoginWindow}
+							/>
 					</Route>
-					<Route path="/app" render={() =>
+					<Route path="/" render={() =>
 						<AuthRequiredWrap
-							redirectTo="/"
-							orRender={ <App /> }/>}/>
+							redirectTo="/login"
+							orRender={App}/>}/>
 				</Switch>
 			</Router>
 		);

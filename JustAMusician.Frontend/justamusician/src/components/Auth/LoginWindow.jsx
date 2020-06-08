@@ -20,7 +20,6 @@ class LoginWindow extends React.Component {
 			isPasswordValid: 0,
 			isPasswordConfirmationValid: 0,
 
-			userAuthorized: false,
 			authValid: true,
 			valid: false,
 
@@ -35,7 +34,6 @@ class LoginWindow extends React.Component {
 			password: "",
 		};
 
-		authorized((val) => this.setState({ userAuthorized: val }));
 	}
 
 	submitHandler (event) {
@@ -53,7 +51,7 @@ class LoginWindow extends React.Component {
 					}
 				}
 			);
-			authorized((val) => this.setState({ userAuthorized: val }));
+			this.props.updateAuth();
 		}
 		event.preventDefault();
 	}
@@ -102,7 +100,6 @@ class LoginWindow extends React.Component {
 	}
 
 	render() {
-		if (this.state.userAuthorized) return <Redirect to="/app" />;
 
 		let emailDanger = this.state.isEmailValid === 0 ? "" : (this.state.isEmailValid === 1 ? "is-valid" : "is-invalid");
 		let passwordDanger = this.state.isPasswordValid === 0 ? "" : (this.state.isPasswordValid === 1 ? "is-valid" : "is-invalid");

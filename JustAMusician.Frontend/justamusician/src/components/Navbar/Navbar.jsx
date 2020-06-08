@@ -1,16 +1,23 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
+import { logout } from '../../utils/authRequests.js';
 
 class Navbar extends React.Component {
 
 	constructor(props) {
 		super(props);
+		this.handleLogout = this.handleLogout.bind(this);
+	}
+
+	handleLogout(e) {
+		logout();
+		this.props.logout();
 	}
 
 	render() {
 		return (
 			<nav className="navbar navbar-expand-lg navbar-dark bg-dark jam-navbar">
-				<Link className="navbar-brand" to="/app">JAM</Link>
+				<Link className="navbar-brand" to="/">JAM</Link>
 				<button className="navbar-toggler"
 						type="button"
 						data-toggle="collapse"
@@ -24,12 +31,17 @@ class Navbar extends React.Component {
 					<ul className="navbar-nav mr-auto">
 
 						<li className="nav-item">
-							<Link className="nav-link" to="/app/lobby">Заявки</Link>
+							<Link className="nav-link" to="/lobby">Заявки</Link>
 						</li>
 
 						<li className="nav-item">
 							<Link className="nav-link"
-								  to="/app/profile">Профиль
+								  to="/profile">Профиль
+							</Link>
+						</li>
+						<li className="nav-item">
+							<Link onClick={this.handleLogout} className="nav-link"
+								  to="/">Выйти
 							</Link>
 						</li>
 					</ul>
@@ -39,7 +51,7 @@ class Navbar extends React.Component {
 							   placeholder="Поиск"
 							   aria-label="Search" />
 						<Link className="btn btn-outline-success my-2 my-sm-0"
-								to="/app/search">Искать
+								to="/search">Искать
 						</Link>
 					</form>
 				</div>

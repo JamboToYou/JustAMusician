@@ -142,70 +142,81 @@ class RegisterWindow extends React.Component {
 		let passwordConfirmationDanger = this.state.isPasswordConfirmationValid === 0 ? "" : (this.state.isPasswordConfirmationValid === 1 ? "is-valid" : "is-invalid");
 
 		return (
-			<form className="card mt-5 w-100" onSubmit={this.submitHandler}>
+			<div className="container-fluid h-100">
+				<div className="row h-100 align-items-center">
+					<div className="col-12
+							col-sm-10 offset-sm-1
+							col-md-8 offset-md-2
+							col-lg-6 offset-lg-3
+							d-flex
+							justify-content-center">
+						<form className="card mt-5 w-100" onSubmit={this.submitHandler}>
 
-				<div className="card-header text-center">
-					<p className="display-3 mb-0 text-info">JustAMusician</p>
+							<div className="card-header text-center">
+								<p className="display-3 mb-0 text-info">JustAMusician</p>
+							</div>
+
+							<div className="card-body">
+								<div className="text-center">
+									<p id="jam-register-title">Регистрация</p>
+								</div>
+								{this.state.errorOccured
+									? <div className="alert alert-danger" role="alert">Не удалось зарегистрироваться</div>
+									: ""}
+								<div className="form-group">
+									<label htmlFor="jam-register-email">Адрес электронной почты:</label>
+									<input id="jam-register-email"
+											name="email"
+											type="email"
+											className={"form-control " + emailDanger}
+											aria-describedby="jam-register-email-help"
+											placeholder="Введите email"
+											onChange={this.inputHandler} />
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="jam-register-nickname">Никнейм:</label>
+									<input id="jam-register-nickname"
+											name="nickname"
+											type="text"
+											className={"form-control " + nicknamelDanger}
+											aria-describedby="jam-register-nickname-help"
+											placeholder="Придумайте себе никнейм"
+											onChange={this.inputHandler} />
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="jam-register-password">Пароль:</label>
+									<input id="jam-register-password"
+											name="password"
+											type="password"
+											className={"form-control " + passwordDanger}
+											aria-describedby="jam-register-password-help"
+											placeholder="Придумайте пароль"
+											onChange={this.inputHandler} />
+									<small id="jam-register-email-help" className="form-text text-info">
+										Длина пароля должна быть не меньше 8 символов
+									</small>
+								</div>
+
+								<div className="form-group">
+									<label htmlFor="jam-register-password-confirm">Подтверждение пароля:</label>
+									<input id="jam-register-password-confirm"
+											name="passwordConfirmation"
+											type="password"
+											className={"form-control " + passwordConfirmationDanger}
+											aria-describedby="jam-register-password-confirm-help"
+											placeholder="Введите пароль повторно"
+											onChange={this.inputHandler} />
+								</div>
+
+								<button type="submit" className="btn btn-primary btn-block" disabled={!this.state.valid}>Зарегистрироваться</button>
+								<p className="forgot-password text-right">Уже есть профиль? <Link to="/">Войдите</Link></p>
+							</div>
+						</form>
+					</div>
 				</div>
-
-				<div className="card-body">
-					<div className="text-center">
-						<p id="jam-register-title">Регистрация</p>
-					</div>
-					{this.state.errorOccured
-						? <div className="alert alert-danger" role="alert">Не удалось зарегистрироваться</div>
-						: ""}
-					<div className="form-group">
-						<label htmlFor="jam-register-email">Адрес электронной почты:</label>
-						<input id="jam-register-email"
-								name="email"
-								type="email"
-								className={"form-control " + emailDanger}
-								aria-describedby="jam-register-email-help"
-								placeholder="Введите email"
-								onChange={this.inputHandler} />
-					</div>
-
-					<div className="form-group">
-						<label htmlFor="jam-register-nickname">Никнейм:</label>
-						<input id="jam-register-nickname"
-								name="nickname"
-								type="text"
-								className={"form-control " + nicknamelDanger}
-								aria-describedby="jam-register-nickname-help"
-								placeholder="Придумайте себе никнейм"
-								onChange={this.inputHandler} />
-					</div>
-
-					<div className="form-group">
-						<label htmlFor="jam-register-password">Пароль:</label>
-						<input id="jam-register-password"
-								name="password"
-								type="password"
-								className={"form-control " + passwordDanger}
-								aria-describedby="jam-register-password-help"
-								placeholder="Придумайте пароль"
-								onChange={this.inputHandler} />
-						<small id="jam-register-email-help" className="form-text text-info">
-							Длина пароля должна быть не меньше 8 символов
-						</small>
-					</div>
-
-					<div className="form-group">
-						<label htmlFor="jam-register-password-confirm">Подтверждение пароля:</label>
-						<input id="jam-register-password-confirm"
-								name="passwordConfirmation"
-								type="password"
-								className={"form-control " + passwordConfirmationDanger}
-								aria-describedby="jam-register-password-confirm-help"
-								placeholder="Введите пароль повторно"
-								onChange={this.inputHandler} />
-					</div>
-
-					<button type="submit" className="btn btn-primary btn-block" disabled={!this.state.valid}>Зарегистрироваться</button>
-					<p className="forgot-password text-right">Уже есть профиль? <Link to="/">Войдите</Link></p>
-				</div>
-			</form>
+			</div>
 		);
 	}
 

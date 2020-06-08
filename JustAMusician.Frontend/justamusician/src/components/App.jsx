@@ -19,23 +19,23 @@ class App extends React.Component {
 		return (
 			<div>
 				<div className="container-fluid">
-					<Navbar />
+					<Navbar logout={this.props.logout} />
 					<div className="row jam-body-container">
 						<div className="container-fluid row">
 							<div className="col-md-3 col-lg-2" id="jam-sidebar-container">
 								<div className="list-group">
-									<a href="#" className="bg-warning list-group-item list-group-item-action disabled">Бенд-треды</a>
-									<a href="#" className="bg-warning list-group-item list-group-item-action">Группы</a>
-									<a href="#" className="bg-warning list-group-item list-group-item-action">Сессии</a>
-									<a href="#" className="bg-warning list-group-item list-group-item-action">Концерты</a>
-									<a href="#" className="bg-warning list-group-item list-group-item-action">Разработка материала</a>
+									<a href="#" className="list-group-item list-group-item-action disabled">Бенд-треды</a>
+									<a href="#" className="list-group-item list-group-item-action">Группы</a>
+									<a href="#" className="list-group-item list-group-item-action">Сессии</a>
+									<a href="#" className="list-group-item list-group-item-action">Концерты</a>
+									<a href="#" className="list-group-item list-group-item-action">Разработка материала</a>
 								</div>
 							</div>
 							<div className="col-md-9 col-lg-10 jumbotron mr-0 w-100 bg-light p-4" id="jam-main-intro">
-								<Route exact path="/app" component={MainPage} />
-								<Route path="/app/lobby" component={() => <Lobby />} />
-								<Route path="/app/search" component={Search} />
-								<Route path="/app/profile" component={Profile} />
+								<Route exact path="/" component={MainPage} />
+								<Route path="/lobby" component={() => <Lobby />} />
+								<Route path="/search" component={Search} />
+								<Route path="/profile" component={Profile} />
 							</div>
 						</div>
 					</div>
