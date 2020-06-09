@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using JustAMusician.Backend.Entities.Relations;
@@ -17,6 +18,7 @@ namespace JustAMusician.Backend.Entities
 		[Required]
 		[DataType(DataType.Text)]
 		[Column("title")]
+		[MaxLength(60)]
 		public string Title { get; set; }
 
 		[Required]
@@ -29,16 +31,23 @@ namespace JustAMusician.Backend.Entities
 		[Column("createdAt")]
 		public DateTime CreatedAt { get; set; }
 
+		[DefaultValue(false)]
+		[Column("forBand")]
+		public bool ForBand { get; set; }
+
 		[Required]
 		[DataType(DataType.DateTime)]
 		[Column("updatedAt")]
 		public DateTime UpdatedAt { get; set; }
 
 		[Required]
-		[ForeignKey("ownerId")]
+		[Column("ownerId")]
+		public int OwnerId { get; set; }
 		public User Owner { get; set; }
 
 		public List<OrderTag> OrderTags { get; set; }
+		public List<OrderGenre> OrderGenres { get; set; }
+		public List<OrderInstrument> OrderInstruments { get; set; }
 
 		public Order()
 		{

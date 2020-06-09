@@ -2,13 +2,15 @@ using System.Collections.Generic;
 using System.Linq;
 using JustAMusician.Backend.Entities;
 using JustAMusician.Backend.Entities.ResponseModels;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.EntityFrameworkCore;
 
 namespace JustAMusician.Backend.Controllers
 {
 	[EnableCors("AllowCors")]
+	[Authorize]
 	[Route("api/genre")]
 	public class GenreController : Controller
 	{
