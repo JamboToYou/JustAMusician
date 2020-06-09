@@ -1,5 +1,6 @@
 import $ from 'jquery';
 import React from 'react';
+import { getOrders } from '../../utils/authRequests.js';
 
 import LobbyOrder from '../Order/LobbyOrder.jsx';
 
@@ -13,16 +14,14 @@ class Lobby extends React.Component {
 	}
 
 	componentDidMount() {
-		$.ajax({
-			method: 'GET',
-			url: 'https://localhost:5001/api/order',
-			headers: { "Access-Control-Allow-Headers": "*" },
-			success: (data, textStatus, xhr) => {
+		getOrders(
+			(data, textStatus, xhr) => {
 				this.setState({ orders: data });
 				console.log(data);
 				console.log('------------');
-			}
-		});
+			},
+			(xhr, errData, errThrown) => {}
+		);
 		// this.setState({ orders: this.props.orders });
 	}
 

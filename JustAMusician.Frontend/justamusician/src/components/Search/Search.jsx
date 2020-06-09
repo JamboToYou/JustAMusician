@@ -6,6 +6,8 @@ import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import './search-style.css';
+import { normalizeNodes } from '../../utils/utils.js';
+import { getGenres, getInstruments } from '../../utils/authRequests.js';
 
 const nodes = [
 	{
@@ -34,14 +36,6 @@ const nodes = [
 		],
 	}
 ];
-
-function normalizeNodes(nodes) {
-	return nodes.map(node => {
-		if (node.children.length == 0)
-			return { value: node.value, label: node.label };
-		return { value: node.value, label: node.label, children: normalizeNodes(node.children) };
-	})
-}
 
 const genreIcons = {
 	check: <span className="rct-icon rct-icon-check" />,
@@ -78,8 +72,8 @@ class Search extends React.Component {
 		this.submitHandler = this.submitHandler.bind(this);
 
 		this.state = {
-			genres: [],
-			instruments: [],
+			genres: props.genres,
+			instruments: props.instruments,
 			genresExpanded: [],
 			instrumentsExpanded: [],
 
@@ -89,34 +83,6 @@ class Search extends React.Component {
 			endDate: null,
 			isLeader: false,
 		}
-	}
-
-	componentDidMount () {
-		$.ajax({
-			method: 'GET',
-			url: 'https://localhost:5001/api/genre/all',
-			headers: { "Access-Control-Allow-Headers": "*" },
-			success: (data, textStatus, xhr) => {
-				this.setState({ genres: normalizeNodes(data) });
-			}
-		});
-		$.ajax({
-			method: 'GET',
-			url: 'https://localhost:5001/api/instrument/all',
-			headers: { "Access-Control-Allow-Headers": "*" },
-			success: (data, textStatus, xhr) => {
-				data.sort((a, b) =>
-				{
-					if (a.label > b.label)
-						return 1;
-					if (a.label < b.label)
-						return -1;
-					return 0;
-				});
-
-				this.setState({ instruments: data });
-			}
-		});
 	}
 
 	datePickHandler (event, picker) {

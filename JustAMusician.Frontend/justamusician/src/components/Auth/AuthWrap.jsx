@@ -14,9 +14,7 @@ class AuthWrap extends React.Component {
 
 	updateAuth () {
 		console.log("we\`re in here");
-		authorized((val) => {
-			this.setState({ userAuthorized: val }, this.forceUpdate);
-		})
+		this.setState({ userAuthorized: authorized() }, this.forceUpdate);
 	}
 
 	render () {

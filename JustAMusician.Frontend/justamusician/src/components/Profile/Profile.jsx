@@ -7,42 +7,8 @@ class Profile extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			nickname: "",
-			email: "",
-			links: [],
-			about: "",
-			userId: "",
-			bands: [],
-			signedUpAt: "",
-			genres: [],
-			instruments: []
+			...props.user
 		}
-	}
-
-	componentDidMount() {
-		getUser(
-			(data, status, xhr) => {
-				console.log(data);
-				this.setState({
-					nickname: data.nickname,
-					email: data.email,
-					about: data.about,
-					links: data.links,
-					userId: data.userId,
-					bands: data.bands,
-					signedUpAt: data.signedUpAt,
-					genres: data.genres,
-					instruments: data.instruments
-				});
-			},
-			(xhr, errorData, errorThrown) => {
-				console.log("--==user fail==--");
-				console.log(xhr);
-				console.log(errorData);
-				console.log(errorThrown);
-				console.log("--==user fail==--");
-			}
-		);
 	}
 
 	render() {

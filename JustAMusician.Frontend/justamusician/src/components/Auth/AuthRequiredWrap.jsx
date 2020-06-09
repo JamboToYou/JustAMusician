@@ -14,17 +14,11 @@ export class AuthRequiredWrap extends React.Component {
 	}
 
 	componentDidMount() {
-		authorized((val) => 
-		{
-			this.setState({ userAuthorized: val });
-		});
+		this.setState({ userAuthorized: authorized() });
 	}
 
 	handleLogout() {
-		authorized((val) => 
-		{
-			this.setState({ userAuthorized: val });
-		});
+		this.setState({ userAuthorized: authorized() });
 	}
 
 	render() {
