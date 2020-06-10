@@ -8,9 +8,11 @@ export class AuthRequiredWrap extends React.Component {
 		super(props);
 		this.state = {
 			redirectTo: props.redirectTo,
-			userAuthorized: true
+			userAuthorized: authorized()
 		};
 		this.handleLogout = this.handleLogout.bind(this);
+
+		console.log(this.state);
 	}
 
 	componentDidMount() {

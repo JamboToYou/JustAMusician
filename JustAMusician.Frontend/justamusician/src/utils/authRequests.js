@@ -65,6 +65,10 @@ const getOrders = (sucFunc, errFunc) =>
 	authorizedRequest("http://localhost:5000/api/order/all", "GET")
 	(null, sucFunc, errFunc);
 
+const getOrder = (id, sucFunc, errFunc) =>
+	authorizedRequest("http://localhost:5000/api/order/" + id, "GET")
+	(null, sucFunc, errFunc);
+
 const addOrder = (data, sucFunc, errFunc) =>
 	authorizedRequest("http://localhost:5000/api/order", "POST")
 	(data, sucFunc, errFunc);
@@ -102,5 +106,6 @@ export {
 	getGenres,
 	getInstruments,
 	getOrders,
+	getOrder,
 	addOrder
 };

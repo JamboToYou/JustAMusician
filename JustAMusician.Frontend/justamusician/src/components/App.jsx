@@ -10,6 +10,8 @@ import Lobby from './Lobby/Lobby.jsx';
 import Profile from './Profile/Profile.jsx';
 import Search from './Search/Search.jsx';
 import CreateOrder from './Order/CreateOrder.jsx';
+import AuthRequiredWrap from './Auth/AuthRequiredWrap.jsx'
+import Order from './Order/Order.jsx'
 
 class App extends React.Component {
 
@@ -100,7 +102,10 @@ class App extends React.Component {
 								</div>
 							</div>
 							<div className="col-md-9 col-lg-10 jumbotron mr-0 w-100 bg-light p-4" id="jam-main-intro">
-								<Route exact path="/" component={MainPage} />
+								<Route exact path="/" component={() =>
+									<AuthRequiredWrap
+										redirectTo="/login"
+										orRender={MainPage}/>} />
 								<Route path="/lobby" component={() => <Lobby />} />
 								<Route path="/search" component={() =>
 									<Search
@@ -113,6 +118,7 @@ class App extends React.Component {
 										genres={this.state.genres}
 										instruments={this.state.instruments}
 										user={this.state.user}/>} />
+								<Route path="/order/:id" component={Order} />
 							</div>
 						</div>
 					</div>

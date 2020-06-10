@@ -30,8 +30,8 @@ class Lobby extends React.Component {
 			<div>
 				{this.props.children}
 				<div className="row mb-4">
-					{this.state.orders.map(({title, body, username}) =>
-						<LobbyOrder title={title} body={body} username={username}/> )}
+					{this.state.orders.map((order) =>
+						<LobbyOrder order={order}/> )}
 
 				</div>
 			</div>
