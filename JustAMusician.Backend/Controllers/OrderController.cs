@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Cors;
 using JustAMusician.Backend.Entities.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using JustAMusician.Backend.Entities.Relations;
+using Microsoft.EntityFrameworkCore;
+using JustAMusician.Backend.Entities.ResponseModels;
 
 namespace JustAMusician.Backend.Controllers
 {
@@ -37,13 +39,27 @@ namespace JustAMusician.Backend.Controllers
 		[HttpGet]
 		public ActionResult<IEnumerable<Order>> Get()
 		{
-			return dbContext.Orders.ToArray();
+			return Ok(dbContext.Orders
+				.Include(order => order.Owner)
+				.Select(order => new OrderResponseModelShort(order))
+				.ToList());
 		}
 
 		[HttpGet("{id}")]
-		public ActionResult<string> Get(int id)
+		public IActionResult Get(int id)
 		{
-			return "value";
+			var order = dbContext.Orders
+				.Include(o => o.OrderGenres)
+				.ThenInclude(og => og.Genre)
+				.Include(o => o.OrderInstruments)
+				.ThenInclude(oi => oi.Instrument)
+				.Include(o => o.Owner)
+				.FirstOrDefault(o => o.OrderId == id);
+
+			if (order == null)
+				return BadRequest();
+
+			return Ok(new OrderResponseModel(order));
 		}
 
 		[HttpPost]
