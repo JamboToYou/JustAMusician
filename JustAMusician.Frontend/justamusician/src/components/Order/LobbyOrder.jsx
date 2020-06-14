@@ -47,7 +47,7 @@ const LobbyOrder = ({order}) => {
 								<p className="text-muted">{ moment(order.updatedAt).fromNow() }</p>
 							</div>
 							<div className="col-6 d-flex justify-content-end">
-								<a className="text-info align-self-end" href="#">@{ order.ownerNickname }</a>
+								<Link className="text-info align-self-end" to={"/otherProfile/" + order.ownerId}>@{ order.ownerNickname }</Link>
 							</div>
 						</div>
 					</div>

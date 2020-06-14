@@ -40,16 +40,17 @@ class Navbar extends React.Component {
 							</Link>
 						</li>
 						<li className="nav-item">
+							<Link className="nav-link"
+								  to="/orderCreate">Создать заявку
+							</Link>
+						</li>
+						<li className="nav-item">
 							<Link onClick={this.handleLogout} className="nav-link"
 								  to="/">Выйти
 							</Link>
 						</li>
 					</ul>
 					<form className="form-inline my-2 my-lg-0">
-						<input className="form-control mr-sm-2"
-							   type="search"
-							   placeholder="Поиск"
-							   aria-label="Search" />
 						<Link className="btn btn-outline-success my-2 my-sm-0"
 								to="/search">Искать
 						</Link>

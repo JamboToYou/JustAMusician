@@ -1,12 +1,12 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import $ from 'jquery';
 import CheckboxTree from 'react-checkbox-tree';
 import DateRangePicker from 'react-bootstrap-daterangepicker';
 import 'react-checkbox-tree/lib/react-checkbox-tree.css';
 import 'bootstrap-daterangepicker/daterangepicker.css';
 import './search-style.css';
-import { normalizeNodes } from '../../utils/utils.js';
+import { normalizeNodes, isNullOrWhitespace } from '../../utils/utils.js';
 import { getGenres, getInstruments } from '../../utils/authRequests.js';
 
 const nodes = [
@@ -68,10 +68,10 @@ class Search extends React.Component {
 	constructor(props) {
 		super(props);
 		this.datePickHandler = this.datePickHandler.bind(this);
-		this.tagInputHandler = this.tagInputHandler.bind(this);
 		this.submitHandler = this.submitHandler.bind(this);
 
 		this.state = {
+
 			genres: props.genres,
 			instruments: props.instruments,
 			genresExpanded: [],
@@ -87,14 +87,9 @@ class Search extends React.Component {
 
 	datePickHandler (event, picker) {
 		this.setState({
-			startDate: picker.startDate.format("MM/DD/YYYY"),
-			endDate: picker.endDate.format("MM/DD/YYYY")
+			startDate: picker.startDate.format("YYYY-MM-DD[T00:00:00]"),
+			endDate: picker.endDate.format("YYYY-MM-DD[T00:00:00]")
 		});
-	}
-
-	tagInputHandler (event) {
-		if (event.key === 'Enter')
-			this.state.selectedTags.push("#" + event.target.value);
 	}
 
 	submitHandler (event) {
@@ -103,7 +98,6 @@ class Search extends React.Component {
 			instruments: this.state.instrumentsChecked,
 			startDate: this.state.startDate,
 			endDate: this.state.endDate,
-			isLeader: this.state.isLeader
 		};
 
 		console.log(rqData);
@@ -174,7 +168,7 @@ class Search extends React.Component {
 							<div className="card">
 								<DateRangePicker onEvent={this.datePickHandler}>
 									<div className="card-header">
-										{ this.state.startDate ? this.state.startDate + "-": "Кликните сюда, чтобы выбрать даты" }
+										{ this.state.startDate ? this.state.startDate + "/": "Кликните сюда, чтобы выбрать даты" }
 										{ this.state.endDate ? this.state.endDate : "" }
 									</div>
 								</DateRangePicker>
@@ -217,7 +211,21 @@ class Search extends React.Component {
 					<div className="row mt-3">
 						<div className="col-12 ">
 							<button type="button" className="btn btn-danger mr-3">Сбросить</button>
-							<button type="button" onClick={this.submitHandler} className="btn btn-info">Искать</button>
+							<Link
+								to={{
+									pathname: "/searchResults",
+									state: {
+										Genres: this.state.genresChecked,
+										Instruments: this.state.instrumentsChecked,
+										StartDate: this.state.startDate,
+										EndDate: this.state.endDate,
+									}
+								}}
+								onClick={this.submitHandler}
+								className={"btn btn-info " + ((isNullOrWhitespace(this.state.startDate) ||
+										isNullOrWhitespace(this.state.endDate))
+										? "disabled"
+										: "" )}>Искать</Link>
 						</div>
 					</div>
 

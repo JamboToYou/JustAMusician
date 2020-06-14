@@ -1,26 +1,57 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 import Gravatar from 'react-gravatar';
-import { getUser } from '../../utils/authRequests.js';
+import { getOtherUser } from '../../utils/authRequests.js';
 import './profile-style.css';
 
-class Profile extends React.Component {
+class OtherProfile extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			...props.user
+			nickname: "",
+			email: "",
+			links: [],
+			about: "",
+			userId: "",
+			bands: [],
+			signedUpAt: "",
+			genres: [],
+			instruments: []
 		}
+	}
+
+	componentDidMount() {
+		const { match: { params } } = this.props;
+		getOtherUser(
+			params.id,
+			(data, status, xhr) => {
+				console.log(data);
+				this.setState({
+					nickname: data.nickname,
+					email: data.email,
+					about: data.about,
+					links: data.links,
+					userId: data.userId,
+					bands: data.bands,
+					signedUpAt: data.signedUpAt,
+					genres: data.genres,
+					instruments: data.instruments
+				});
+			},
+			(xhr, errorData, errorThrown) => {
+				console.log("--==user fail==--");
+				console.log(xhr);
+				console.log(errorData);
+				console.log(errorThrown);
+				console.log("--==user fail==--");
+			}
+		);
 	}
 
 	render() {
 		return (
-				<div className="container emp-profile">
-					<div className="row">
-						<Link to="/editProfile" className="btn btn-primary col-1 offset-11">
-							<i className="fa fa-edit"></i>
-						</Link>
-					</div>
+			<div className="container emp-profile">
+				<form method="post">
 					<div className="row mb-5">
 						<div className="col-md-4">
 							<Gravatar email={this.state.email} size={200} default="monsterid" className="img-thumbnail rounded-circle mx-auto d-block" />
@@ -108,9 +139,10 @@ class Profile extends React.Component {
 							</div>
 						</div>
 					</div>
+				</form>
 			</div>
 		);
 	}
 }
 
-export default Profile;
+export default OtherProfile;

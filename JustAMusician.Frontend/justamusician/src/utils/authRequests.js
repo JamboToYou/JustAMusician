@@ -53,6 +53,10 @@ const getUser = (sucFunc, errFunc) => {
 		) : null;
 };
 
+const getOtherUser = (id, sucFunc, errFunc) =>
+	authorizedRequest("http://localhost:5000/api/user/" + id, "GET")
+	(null, sucFunc, errFunc);
+
 const getGenres = (sucFunc, errFunc) =>
 	authorizedRequest("http://localhost:5000/api/genre/all", "GET")
 	(null, sucFunc, errFunc);
@@ -73,6 +77,10 @@ const addOrder = (data, sucFunc, errFunc) =>
 	authorizedRequest("http://localhost:5000/api/order", "POST")
 	(data, sucFunc, errFunc);
 
+const search = (data, sucFunc, errFunc) =>
+	authorizedRequest("http://localhost:5000/api/search", "POST")
+	(data, sucFunc, errFunc);
+
 const authorizedRequest = (url, method) => {
 	if (localStorage.getItem("auth")) {
 		var token = JSON.parse(localStorage.auth).access_token;
@@ -83,6 +91,9 @@ const authorizedRequest = (url, method) => {
 };
 
 const rawRequest = (url, method, headers) => (data, sucFunc, errFunc) => {
+	// console.log("---===---===---");
+	// console.log(data);
+	// console.log("---===---===---");
 	$.ajax({
 		url,
 		method,
@@ -91,7 +102,7 @@ const rawRequest = (url, method, headers) => (data, sucFunc, errFunc) => {
 			"Content-Type": "application/json; charset=utf-8",
 			...headers
 		},
-		data: data,
+		data,
 		success: (data, status, xhr) => sucFunc(data, status, xhr),
 		error: (xhr, errorData, errorThrown) => errFunc(xhr, errorData, errorThrown)
 	});
@@ -103,9 +114,11 @@ export {
 	authorized,
 	logout,
 	getUser,
+	getOtherUser,
 	getGenres,
 	getInstruments,
 	getOrders,
 	getOrder,
-	addOrder
+	addOrder,
+	search
 };
