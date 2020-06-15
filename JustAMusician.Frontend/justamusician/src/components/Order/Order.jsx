@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { getOrder } from '../../utils/authRequests.js';
 import moment from 'moment';
 import 'moment/locale/ru';
@@ -18,7 +19,8 @@ class Order extends React.Component {
 			genres: [],
 			instruments: [],
 			email: "",
-			nickname: ""
+			nickname: "",
+			ownerId: ""
 		}
 	}
 
@@ -27,6 +29,7 @@ class Order extends React.Component {
 		getOrder(
 			params.id,
 			(data, status, xhr) => {
+				console.log(data);
 				this.setState({
 					orderId: data.orderId,
 					title: data.title,
@@ -36,7 +39,8 @@ class Order extends React.Component {
 					genres: data.genres,
 					instruments: data.instruments,
 					email: data.owner.email,
-					nickname: data.owner.nickname
+					nickname: data.owner.nickname,
+					ownerId: data.ownerId
 				});
 			},
 			(x, y, z) => {}
@@ -58,7 +62,7 @@ class Order extends React.Component {
 						<p>{this.state.body}</p>
 					</div>
 					<div className="col-6">
-						<p className="display-4 m-0">@{this.state.nickname}</p>
+						<Link to={"/otherProfile/" + this.state.ownerId } className="display-4 m-0">@{this.state.nickname}</Link>
 						<p className="display-5 m-0">{this.state.email}</p>
 					</div>
 				</div>

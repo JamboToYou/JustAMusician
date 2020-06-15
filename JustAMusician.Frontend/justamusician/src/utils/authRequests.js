@@ -81,6 +81,10 @@ const search = (data, sucFunc, errFunc) =>
 	authorizedRequest("http://localhost:5000/api/search", "POST")
 	(data, sucFunc, errFunc);
 
+const editProfile = (data, sucFunc, errFunc) =>
+	authorizedRequest("http://localhost:5000/api/user", "PUT")
+	(data, sucFunc, errFunc);
+
 const authorizedRequest = (url, method) => {
 	if (localStorage.getItem("auth")) {
 		var token = JSON.parse(localStorage.auth).access_token;
@@ -120,5 +124,6 @@ export {
 	getOrders,
 	getOrder,
 	addOrder,
-	search
+	search,
+	editProfile
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const MainPage = () => {
 	return (
@@ -19,25 +20,25 @@ const MainPage = () => {
 							<div className="card-body">
 								<div className="card-title display-4">Поиск музыкантов</div>
 								<p className="card-text">Если у вас есть недостающее звено в группе - в вашем распоряжении инструмент поиска соискателей на любой профиль</p>
-								<a className="btn btn-primary text-light">Перейти</a>
+								<Link className="btn btn-primary text-light" to="/search">Перейти</Link>
 							</div>
 						</div>
 					</div>
 					<div className="col-4 pl-2 pr-2">
 						<div className="card bg-info">
 							<div className="card-body">
-								<div className="card-title display-4">Личное портфолио</div>
-								<p className="card-text">Размещай свой материал у себя в профиле</p>
-								<a className="btn btn-primary text-light">Перейти</a>
+								<div className="card-title display-4">Личный профиль</div>
+								<p className="card-text">Размещайте информацию о себе на своем личном профиле</p>
+								<Link className="btn btn-primary text-light" to="/profile">Перейти</Link>
 							</div>
 						</div>
 					</div>
 					<div className="col-4 pl-2 pr-2">
 						<div className="card bg-info">
 							<div className="card-body">
-								<div className="card-title display-4">Поиск музыкальных коллективов</div>
+								<div className="card-title display-4">Просмотр заявок</div>
 								<p className="card-text">Найдите свой музыкальный коллектив и начните свою творческую карьеру</p>
-								<a className="btn btn-primary text-light">Перейти</a>
+								<Link className="btn btn-primary text-light" to="/lobby">Перейти</Link>
 							</div>
 						</div>
 					</div>

@@ -1,5 +1,8 @@
 using System.Linq;
+using JustAMusician.Backend.Entities;
+using JustAMusician.Backend.Entities.Relations;
 using JustAMusician.Backend.Entities.ResponseModels;
+using JustAMusician.Backend.Entities.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
@@ -108,6 +111,30 @@ namespace JustAMusician.Backend.Controllers
 				Instruments = instruments,
 				Links = links
 			});
+		}
+
+		[HttpPut]
+		[Authorize]
+		public IActionResult Update([FromBody] UserEditViewModel vModel)
+		{
+			var user = dbContext.Users
+				.Include(usr => usr.UserInstruments)
+				.FirstOrDefault(usr => usr.UserId == int.Parse(User.Identity.Name));
+			if (user == null)
+				return BadRequest();
+
+			user.Links = vModel.Links?.Select(link => new Link { Url = link }).ToList();
+			user.About = vModel.About;
+			user.UserInstruments = dbContext.Instruments
+				.Where(instr => vModel.Instruments
+					.Select(i => int.Parse(i))
+					.Contains(instr.InstrumentId))
+				.Select(instr => new UserInstrument { UserId = user.UserId, InstrumentId = instr.InstrumentId })
+				.ToList();
+
+			dbContext.SaveChanges();
+
+			return Ok();
 		}
 	}
 }

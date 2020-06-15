@@ -2,7 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import { Redirect } from 'react-router-dom';
 import CheckboxTree from 'react-checkbox-tree';
-import { addOrder } from '../../utils/authRequests.js';
+import { editProfile } from '../../utils/authRequests.js';
 import { isNullOrWhitespace, isUrl } from '../../utils/utils.js';
 
 const genreIcons = {
@@ -41,6 +41,7 @@ class EditProfile extends React.Component {
 		this.handleLinkInput = this.handleLinkInput.bind(this);
 		this.handleAboutInput = this.handleAboutInput.bind(this);
 		this.state = {
+			updated: false,
 			linkValid: 0,
 			allGenres: props.genres,
 			allInstruments: props.instruments,
@@ -52,7 +53,17 @@ class EditProfile extends React.Component {
 	}
 
 	submitForm(event) {
+		editProfile(JSON.stringify({
+				links: this.state.links,
+				about: this.state.about,
+				instruments: this.state.instruments
+			}),
+			(data, status, xhr) => {
 
+				this.setState({ updated: true });
+			},
+			(x, y, z) => {}
+		);
 	}
 
 	handleLinkInput (event) {
@@ -84,6 +95,10 @@ class EditProfile extends React.Component {
 	}
 
 	render() {
+		if (this.state.updated)
+			return <Redirect to="/profile" />;
+
+
 		let lnkValid = this.state.linkValid === 1 ? "is-valid" : (this.state.linkValid === -1 ? "is-invalid" : "");
 
 		return (
@@ -145,6 +160,7 @@ class EditProfile extends React.Component {
 							value={this.state.about}></textarea>
 					</div>
 				</div>
+				<button className="btn btn-success" onClick={this.submitForm}>Сохранить</button>
 			</div>
 		);
 	}
